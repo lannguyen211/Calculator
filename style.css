@@ -1,0 +1,324 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol,
+ul {
+    list-style: none;
+}
+blockquote,
+q {
+    quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    border: none;
+    outline: none;
+}
+
+/* End of reset */
+
+:root {
+    --light-grey-color: rgb(235, 235, 235);
+    --darker-grey-color: rgb(126, 126, 126);
+    --grey-hover-color: rgb(187, 187, 187);
+
+    /* Blue theme colors */
+    --blue-background: linear-gradient(135deg, #00d2ff 0%, #3a47d5 100%);
+    --blue-text: #022859;
+    --blue-keyboard-n-border: #94bdf2;
+    --blue-hover: #6ba5f2;
+    --blue-cal-background: rgba(206, 232, 242, 0.8);
+    --blue-prev-text: #3f8ebf;
+
+    /* Purple theme colors */
+    --purple-background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+    --purple-text: #222059;
+    --purple-keyboard-n-border: #7471d9;
+    /* --purple-keyboard-n-border: rgba(116, 113, 217, 0.1); */
+    --purple-hover: #8850bf;
+    --purple-cal-background: rgba(210, 187, 242, 0.3);
+    --purple-prev-text: #e0c4f2;
+}
+
+* {
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+.calculator {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: minmax(50px, auto) repeat(4, 50px);
+    grid-gap: 5px;
+    width: 335px;
+    padding: 20px;
+}
+
+.item {
+    height: 50px;
+    font-size: 1rem;
+}
+
+.item:hover {
+    cursor: pointer;
+}
+
+.output {
+    grid-column: 1/-1;
+    min-height: 90px;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+    /* background-color: rgba(255, 255, 255, 0.2); */
+}
+
+.output .previous-operand {
+    font-size: 1.2rem;
+}
+
+#theme-options {
+    position: absolute;
+    height: 30px;
+    width: 100px;
+    margin-bottom: 40px;
+    top: 0;
+    right: 0;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* Default theme */
+.df-bg {
+    background: rgb(58, 58, 58);
+}
+
+.df-cal-bg {
+    background-color: #fff;
+}
+
+.df-output-border {
+    border: 1px solid var(--light-grey-color);
+}
+
+.df-previous-operand {
+    color: var(--darker-grey-color);
+}
+
+.df-current-operand {
+    color: black;
+}
+
+.df-item {
+    background: var(--light-grey-color);
+    transition: 0.3s;
+}
+
+.df-item:hover {
+    background: var(--grey-hover-color);
+}
+
+/* Blue theme */
+.blue-bg {
+    background: var(--blue-background);
+}
+
+.blue-cal-bg {
+    background-color: var(--blue-cal-background);
+}
+
+.blue-output-border {
+    border: 1px solid var(--blue-keyboard-n-border);
+}
+
+.blue-previous-operand {
+    color: var(--blue-prev-text);
+}
+
+.blue-current-operand {
+    color: var(--blue-text);
+}
+
+.blue-item {
+    background: var(--blue-keyboard-n-border);
+    color: var(--blue-text);
+}
+
+.blue-item:hover {
+    background: var(--blue-hover);
+}
+
+/* Purple theme */
+.purple-bg {
+    background: var(--purple-background);
+}
+
+.purple-cal-bg {
+    background-color: var(--purple-cal-background);
+}
+
+.purple-output-border {
+    border: 1px solid var(--purple-keyboard-n-border);
+}
+
+.purple-previous-operand {
+    color: var(--purple-prev-text);
+}
+
+.purple-current-operand {
+    color: #fff;
+}
+
+.purple-item {
+    background: var(--purple-keyboard-n-border);
+    color: #fff;
+}
+
+.purple-item:hover {
+    background: var(--purple-hover);
+}
