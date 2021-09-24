@@ -145,20 +145,20 @@ button {
     --grey-hover-color: rgb(187, 187, 187);
 
     /* Blue theme colors */
-    --blue-background: linear-gradient(135deg, #00d2ff 0%, #3a47d5 100%);
+    --blue-background: linear-gradient(135deg, #91ebff 0%, #9ea6ff 100%);
     --blue-text: #022859;
     --blue-keyboard-n-border: #94bdf2;
     --blue-hover: #6ba5f2;
-    --blue-cal-background: rgba(206, 232, 242, 0.8);
+    --blue-cal-background: rgba(241, 251, 255, 0.8);
     --blue-prev-text: #3f8ebf;
 
     /* Purple theme colors */
     --purple-background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
     --purple-text: #222059;
-    --purple-keyboard-n-border: #7471d9;
-    /* --purple-keyboard-n-border: rgba(116, 113, 217, 0.1); */
+    /* --purple-keyboard-n-border: #7571d9; */
+    --purple-keyboard-n-border: rgba(116, 113, 217, 0.3);
     --purple-hover: #8850bf;
-    --purple-cal-background: rgba(210, 187, 242, 0.3);
+    --purple-cal-background: rgba(210, 187, 242, 0.2);
     --purple-prev-text: #e0c4f2;
 }
 
@@ -270,6 +270,7 @@ body {
 
 .blue-cal-bg {
     background-color: var(--blue-cal-background);
+    box-shadow: 0px 7px 29px 0px #2220595f;
 }
 
 .blue-output-border {
@@ -300,10 +301,12 @@ body {
 
 .purple-cal-bg {
     background-color: var(--purple-cal-background);
+    border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 .purple-output-border {
-    border: 1px solid var(--purple-keyboard-n-border);
+    /* border: 1px solid var(--purple-keyboard-n-border); */
+    border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 .purple-previous-operand {
@@ -317,6 +320,7 @@ body {
 .purple-item {
     background: var(--purple-keyboard-n-border);
     color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 .purple-item:hover {

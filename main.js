@@ -3,17 +3,10 @@ var equalsBtn = document.querySelector("[data-equals]"),
     allClearBtn = document.querySelector("[data-all-clear]"),
     operationBtns = document.querySelectorAll("[data-operation]"),
     numBtns = document.querySelectorAll("[data-number]"),
-    previousOperandTextElement = document.querySelector(
-        "[data-previous-operand]"
-    ),
-    currentOperandTextElement = document.querySelector(
-        "[data-current-operand]"
-    );
+    previousOperandTextElement = document.querySelector("[data-previous-operand]"),
+    currentOperandTextElement = document.querySelector("[data-current-operand]");
 
-const calculator = new Calculator(
-    previousOperandTextElement,
-    currentOperandTextElement
-);
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
 
 numBtns.forEach((button) => {
     button.addEventListener("click", () => {
@@ -49,25 +42,36 @@ document.addEventListener("keydown", (e) => {
     if (e.key >= "0" && e.key <= "9") {
         calculator.appendNum(e.key);
         calculator.updateDisplay();
-    } else if (e.key === "Backspace") {
-        calculator.delete();
-        calculator.updateDisplay();
-    } else if (e.key === "Delete") {
-        calculator.clear();
-        calculator.updateDisplay();
-    } else if (e.key === "=" || e.key === "Enter") {
-        e.preventDefault(); //prevent click event when press "Enter"
-        calculator.compute();
-        calculator.updateDisplay();
-    } else if (e.key == "-" || e.key == "/") {
-        calculator.chooseOperation(e.key);
-        calculator.updateDisplay();
-    } else if (e.shiftKey) {
-        if (e.key === "+" || e.key === "*" || e.key === "%") {
-            calculator.chooseOperation(e.key);
-            calculator.updateDisplay();
+    } else
+        switch (e.key) {
+            case "Backspace":
+                calculator.delete();
+                calculator.updateDisplay();
+                break;
+            case "Delete":
+                calculator.clear();
+                calculator.updateDisplay();
+                break;
+            case "=":
+            case "Enter":
+                e.preventDefault(); //prevent click event when press "Enter"
+                calculator.compute();
+                calculator.updateDisplay();
+                break;
+            case "-":
+            case "/":
+                calculator.chooseOperation(e.key);
+                calculator.updateDisplay();
+                break;
+            case "+":
+            case "*":
+            case "%":
+                if (e.shiftKey) {
+                    calculator.chooseOperation(e.key);
+                    calculator.updateDisplay();
+                }
+                break;
         }
-    }
 });
 
 // Format
@@ -78,92 +82,136 @@ var selectionElement = document.querySelector("#theme-options"),
     outputElement = document.querySelector(".output");
 
 function changeOption() {
-    if (selectionElement.value == "0") {
-        containerElement.classList.remove("blue-bg", "purple-bg");
-        containerElement.classList.add("df-bg");
+    var formatBgClasses = { dfBgClass: "df-bg", blueBg: "blue-bg", purpleBg: "purple-bg" },
+        formatCalBgClasses = { dfCalBgClass: "df-cal-bg", blueCal: "blue-cal-bg", purpleCal: "purple-cal-bg" },
+        formatOutputBorderClasses = {
+            dfOutputBorderClass: "df-output-border",
+            blueOutputBorder: "blue-output-border",
+            purpleOutputBorder: "purple-output-border",
+        },
+        formatPreviousOperandClasses = {
+            dfPreviousOperandClass: "df-previous-operand",
+            bluePrevOperand: "blue-previous-operand",
+            purplePrevOperand: "purple-previous-operand",
+        },
+        formatCurrentOperandClasses = {
+            dfCurrentOperandClasses: "df-current-operand",
+            blueCurrOperand: "blue-current-operand",
+            purpleCurrOperand: "purple-current-operand",
+        },
+        formatButtonClasses = { dfButtonClass: "df-item", blueButton: "blue-item", purpleButton: "purple-item" };
 
-        calculatorElement.classList.remove("blue-cal-bg", "purple-cal-bg");
-        calculatorElement.classList.add("df-cal-bg");
+    switch (selectionElement.value) {
+        case "0": // Default theme
+            var { dfBgClass, ...otherBgClasses } = formatBgClasses;
+            for (let i in otherBgClasses) {
+                containerElement.classList.remove(otherBgClasses[i]);
+            }
+            var { dfCalBgClass, ...otherCalBgClasses } = formatCalBgClasses;
+            for (let i in otherCalBgClasses) {
+                calculatorElement.classList.remove(otherCalBgClasses[i]);
+            }
+            var { dfOutputBorderClass, ...otherOutputBorderClasses } = formatOutputBorderClasses;
+            for (let i in otherOutputBorderClasses) {
+                outputElement.classList.remove(otherOutputBorderClasses[i]);
+            }
+            var { dfPreviousOperandClass, ...otherPreviousOperandClasses } = formatPreviousOperandClasses;
+            for (let i in otherPreviousOperandClasses) {
+                previousOperandTextElement.classList.remove(otherPreviousOperandClasses[i]);
+            }
+            var { dfCurrentOperandClasses, ...otherCurrentOperandClasses } = formatCurrentOperandClasses;
+            for (let i in otherCurrentOperandClasses) {
+                currentOperandTextElement.classList.remove(otherCurrentOperandClasses[i]);
+            }
+            var { dfButtonClass, ...otherButtonClasses } = formatButtonClasses;
+            for (let i in otherButtonClasses) {
+                buttonElements.forEach((button) => {
+                    button.classList.remove(otherButtonClasses[i]);
+                });
+            }
 
-        outputElement.classList.remove(
-            "blue-output-border",
-            "purple-output-border"
-        );
-        outputElement.classList.add("df-output-border");
+            containerElement.classList.add(dfBgClass);
+            calculatorElement.classList.add(dfCalBgClass);
+            outputElement.classList.add(dfOutputBorderClass);
+            previousOperandTextElement.classList.add(dfPreviousOperandClass);
+            currentOperandTextElement.classList.add(dfCurrentOperandClasses);
+            buttonElements.forEach((button) => {
+                button.classList.add(dfButtonClass);
+            });
+            break;
+        case "1": // Blue theme
+            var { blueBg, ...otherBgClasses } = formatBgClasses;
+            for (let i in otherBgClasses) {
+                containerElement.classList.remove(otherBgClasses[i]);
+            }
+            var { blueCal, ...otherCalBgClasses } = formatCalBgClasses;
+            for (let i in otherCalBgClasses) {
+                calculatorElement.classList.remove(otherCalBgClasses[i]);
+            }
+            var { blueOutputBorder, ...otherOutputBorderClasses } = formatOutputBorderClasses;
+            for (let i in otherOutputBorderClasses) {
+                outputElement.classList.remove(otherOutputBorderClasses[i]);
+            }
+            var { bluePrevOperand, ...otherPreviousOperandClasses } = formatPreviousOperandClasses;
+            for (let i in otherPreviousOperandClasses) {
+                previousOperandTextElement.classList.remove(otherPreviousOperandClasses[i]);
+            }
+            var { blueCurrOperand, ...otherCurrentOperandClasses } = formatCurrentOperandClasses;
+            for (let i in otherCurrentOperandClasses) {
+                currentOperandTextElement.classList.remove(otherCurrentOperandClasses[i]);
+            }
+            var { blueButton, ...otherButtonClasses } = formatButtonClasses;
+            for (let i in otherButtonClasses) {
+                buttonElements.forEach((button) => {
+                    button.classList.remove(otherButtonClasses[i]);
+                });
+            }
 
-        previousOperandTextElement.classList.remove(
-            "blue-previous-operand",
-            "purple-previous-operand"
-        );
-        previousOperandTextElement.classList.add("df-previous-operand");
+            containerElement.classList.add(blueBg);
+            calculatorElement.classList.add(blueCal);
+            outputElement.classList.add(blueOutputBorder);
+            previousOperandTextElement.classList.add(bluePrevOperand);
+            currentOperandTextElement.classList.add(blueCurrOperand);
+            buttonElements.forEach((button) => {
+                button.classList.add(blueButton);
+            });
+            break;
+        case "2": // Purple theme
+            var { purpleBg, ...otherBgClasses } = formatBgClasses;
+            for (let i in otherBgClasses) {
+                containerElement.classList.remove(otherBgClasses[i]);
+            }
+            var { purpleCal, ...otherCalBgClasses } = formatCalBgClasses;
+            for (let i in otherCalBgClasses) {
+                calculatorElement.classList.remove(otherCalBgClasses[i]);
+            }
+            var { purpleOutputBorder, ...otherOutputBorderClasses } = formatOutputBorderClasses;
+            for (let i in otherOutputBorderClasses) {
+                outputElement.classList.remove(otherOutputBorderClasses[i]);
+            }
+            var { purplePrevOperand, ...otherPreviousOperandClasses } = formatPreviousOperandClasses;
+            for (let i in otherPreviousOperandClasses) {
+                previousOperandTextElement.classList.remove(otherPreviousOperandClasses[i]);
+            }
+            var { purpleCurrOperand, ...otherCurrentOperandClasses } = formatCurrentOperandClasses;
+            for (let i in otherCurrentOperandClasses) {
+                currentOperandTextElement.classList.remove(otherCurrentOperandClasses[i]);
+            }
+            var { purpleButton, ...otherButtonClasses } = formatButtonClasses;
+            for (let i in otherButtonClasses) {
+                buttonElements.forEach((button) => {
+                    button.classList.remove(otherButtonClasses[i]);
+                });
+            }
 
-        currentOperandTextElement.classList.remove(
-            "blue-current-operand",
-            "purple-current-operand"
-        );
-        currentOperandTextElement.classList.add("df-current-operand");
-
-        buttonElements.forEach((button) => {
-            button.classList.remove("blue-item", "purple-item");
-            button.classList.add("df-item");
-        });
-    } else if (selectionElement.value == "1") {
-        containerElement.classList.remove("df-bg", "purple-bg");
-        containerElement.classList.add("blue-bg");
-
-        calculatorElement.classList.remove("df-cal-bg", "purple-cal-bg");
-        calculatorElement.classList.add("blue-cal-bg");
-
-        outputElement.classList.remove(
-            "df-output-border",
-            "purple-output-border"
-        );
-        outputElement.classList.add("blue-output-border");
-
-        previousOperandTextElement.classList.remove(
-            "df-previous-operand",
-            "purple-previous-operand"
-        );
-        previousOperandTextElement.classList.add("blue-previous-operand");
-
-        currentOperandTextElement.classList.remove(
-            "df-current-operand",
-            "purple-current-operand"
-        );
-        currentOperandTextElement.classList.add("blue-current-operand");
-
-        buttonElements.forEach((button) => {
-            button.classList.remove("df-item", "purple-item");
-            button.classList.add("blue-item");
-        });
-    } else if (selectionElement.value == "2") {
-        containerElement.classList.remove("df-bg", "blue-bg");
-        containerElement.classList.add("purple-bg");
-
-        calculatorElement.classList.remove("df-cal-bg", "blue-cal-bg");
-        calculatorElement.classList.add("purple-cal-bg");
-
-        outputElement.classList.remove(
-            "df-output-border",
-            "blue-output-border"
-        );
-        outputElement.classList.add("purple-output-border");
-
-        previousOperandTextElement.classList.remove(
-            "df-previous-operand",
-            "blue-previous-operand"
-        );
-        previousOperandTextElement.classList.add("purple-previous-operand");
-
-        currentOperandTextElement.classList.remove(
-            "df-current-operand",
-            "blue-current-operand"
-        );
-        currentOperandTextElement.classList.add("purple-current-operand");
-
-        buttonElements.forEach((button) => {
-            button.classList.remove("df-item", "blue-item");
-            button.classList.add("purple-item");
-        });
+            containerElement.classList.add(purpleBg);
+            calculatorElement.classList.add(purpleCal);
+            outputElement.classList.add(purpleOutputBorder);
+            previousOperandTextElement.classList.add(purplePrevOperand);
+            currentOperandTextElement.classList.add(purpleCurrOperand);
+            buttonElements.forEach((button) => {
+                button.classList.add(purpleButton);
+            });
+            break;
     }
 }
