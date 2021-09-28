@@ -81,18 +81,16 @@ class Calculator {
     }
 
     updateDisplay() {
-        this.currentOperandTextElement.innerText = this.formatNum(
-            this.currentOperand
-        );
+        this.currentOperandTextElement.innerText = this.formatNum(this.currentOperand);
         if (this.previousOperandTextElement.innerText == "undefined") {
             this.previousOperandTextElement.innerText = "";
         }
         if (this.previousOperandTextElement != null) {
-            this.previousOperandTextElement.innerText = `${this.formatNum(
-                this.previousOperand
-            )} ${this.operation}`;
+            this.previousOperandTextElement.innerText = `${this.formatNum(this.previousOperand)} ${this.operation}`;
         } else {
             this.previousOperandTextElement.innerText = "";
         }
     }
 }
+
+export default Calculator;

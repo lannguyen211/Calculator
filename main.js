@@ -1,3 +1,5 @@
+import Calculator from "./Calculator";
+
 var equalsBtn = document.querySelector("[data-equals]"),
     delBtn = document.querySelector("[data-delete]"),
     allClearBtn = document.querySelector("[data-all-clear]"),
@@ -33,7 +35,7 @@ allClearBtn.addEventListener("click", () => {
 });
 
 delBtn.addEventListener("click", () => {
-    calculator.delete();
+    calculator.devare();
     calculator.updateDisplay();
 });
 
@@ -45,10 +47,10 @@ document.addEventListener("keydown", (e) => {
     } else
         switch (e.key) {
             case "Backspace":
-                calculator.delete();
+                calculator.devare();
                 calculator.updateDisplay();
                 break;
-            case "Delete":
+            case "Devare":
                 calculator.clear();
                 calculator.updateDisplay();
                 break;
@@ -90,12 +92,12 @@ function changeOption() {
             purpleOutputBorder: "purple-output-border",
         },
         formatPreviousOperandClasses = {
-            dfPreviousOperandClass: "df-previous-operand",
+            dfPrevOperandClass: "df-previous-operand",
             bluePrevOperand: "blue-previous-operand",
             purplePrevOperand: "purple-previous-operand",
         },
         formatCurrentOperandClasses = {
-            dfCurrentOperandClasses: "df-current-operand",
+            dfCurrOperandClass: "df-current-operand",
             blueCurrOperand: "blue-current-operand",
             purpleCurrOperand: "purple-current-operand",
         },
@@ -104,114 +106,77 @@ function changeOption() {
     switch (selectionElement.value) {
         case "0": // Default theme
             var { dfBgClass, ...otherBgClasses } = formatBgClasses;
-            for (let i in otherBgClasses) {
-                containerElement.classList.remove(otherBgClasses[i]);
-            }
             var { dfCalBgClass, ...otherCalBgClasses } = formatCalBgClasses;
-            for (let i in otherCalBgClasses) {
-                calculatorElement.classList.remove(otherCalBgClasses[i]);
-            }
             var { dfOutputBorderClass, ...otherOutputBorderClasses } = formatOutputBorderClasses;
-            for (let i in otherOutputBorderClasses) {
-                outputElement.classList.remove(otherOutputBorderClasses[i]);
-            }
-            var { dfPreviousOperandClass, ...otherPreviousOperandClasses } = formatPreviousOperandClasses;
-            for (let i in otherPreviousOperandClasses) {
-                previousOperandTextElement.classList.remove(otherPreviousOperandClasses[i]);
-            }
-            var { dfCurrentOperandClasses, ...otherCurrentOperandClasses } = formatCurrentOperandClasses;
-            for (let i in otherCurrentOperandClasses) {
-                currentOperandTextElement.classList.remove(otherCurrentOperandClasses[i]);
-            }
+            var { dfPrevOperandClass, ...otherPreviousOperandClasses } = formatPreviousOperandClasses;
+            var { dfCurrOperandClass, ...otherCurrentOperandClasses } = formatCurrentOperandClasses;
             var { dfButtonClass, ...otherButtonClasses } = formatButtonClasses;
-            for (let i in otherButtonClasses) {
-                buttonElements.forEach((button) => {
-                    button.classList.remove(otherButtonClasses[i]);
-                });
-            }
-
-            containerElement.classList.add(dfBgClass);
-            calculatorElement.classList.add(dfCalBgClass);
-            outputElement.classList.add(dfOutputBorderClass);
-            previousOperandTextElement.classList.add(dfPreviousOperandClass);
-            currentOperandTextElement.classList.add(dfCurrentOperandClasses);
-            buttonElements.forEach((button) => {
-                button.classList.add(dfButtonClass);
-            });
+            handleAddThemeClasses`${dfBgClass}${dfCalBgClass}${dfOutputBorderClass}${dfPrevOperandClass}
+            ${dfCurrOperandClass}${dfButtonClass}${otherBgClasses}${otherCalBgClasses}
+            ${otherOutputBorderClasses}${otherPreviousOperandClasses}${otherCurrentOperandClasses}
+            ${otherButtonClasses}`;
             break;
         case "1": // Blue theme
             var { blueBg, ...otherBgClasses } = formatBgClasses;
-            for (let i in otherBgClasses) {
-                containerElement.classList.remove(otherBgClasses[i]);
-            }
             var { blueCal, ...otherCalBgClasses } = formatCalBgClasses;
-            for (let i in otherCalBgClasses) {
-                calculatorElement.classList.remove(otherCalBgClasses[i]);
-            }
             var { blueOutputBorder, ...otherOutputBorderClasses } = formatOutputBorderClasses;
-            for (let i in otherOutputBorderClasses) {
-                outputElement.classList.remove(otherOutputBorderClasses[i]);
-            }
             var { bluePrevOperand, ...otherPreviousOperandClasses } = formatPreviousOperandClasses;
-            for (let i in otherPreviousOperandClasses) {
-                previousOperandTextElement.classList.remove(otherPreviousOperandClasses[i]);
-            }
             var { blueCurrOperand, ...otherCurrentOperandClasses } = formatCurrentOperandClasses;
-            for (let i in otherCurrentOperandClasses) {
-                currentOperandTextElement.classList.remove(otherCurrentOperandClasses[i]);
-            }
             var { blueButton, ...otherButtonClasses } = formatButtonClasses;
-            for (let i in otherButtonClasses) {
-                buttonElements.forEach((button) => {
-                    button.classList.remove(otherButtonClasses[i]);
-                });
-            }
-
-            containerElement.classList.add(blueBg);
-            calculatorElement.classList.add(blueCal);
-            outputElement.classList.add(blueOutputBorder);
-            previousOperandTextElement.classList.add(bluePrevOperand);
-            currentOperandTextElement.classList.add(blueCurrOperand);
-            buttonElements.forEach((button) => {
-                button.classList.add(blueButton);
-            });
+            handleAddThemeClasses`${blueBg}${blueCal}${blueOutputBorder}${bluePrevOperand}
+            ${blueCurrOperand}${blueButton}${otherBgClasses}${otherCalBgClasses}
+            ${otherOutputBorderClasses}${otherPreviousOperandClasses}${otherCurrentOperandClasses}
+            ${otherButtonClasses}`;
             break;
         case "2": // Purple theme
             var { purpleBg, ...otherBgClasses } = formatBgClasses;
-            for (let i in otherBgClasses) {
-                containerElement.classList.remove(otherBgClasses[i]);
-            }
             var { purpleCal, ...otherCalBgClasses } = formatCalBgClasses;
-            for (let i in otherCalBgClasses) {
-                calculatorElement.classList.remove(otherCalBgClasses[i]);
-            }
             var { purpleOutputBorder, ...otherOutputBorderClasses } = formatOutputBorderClasses;
-            for (let i in otherOutputBorderClasses) {
-                outputElement.classList.remove(otherOutputBorderClasses[i]);
-            }
             var { purplePrevOperand, ...otherPreviousOperandClasses } = formatPreviousOperandClasses;
-            for (let i in otherPreviousOperandClasses) {
-                previousOperandTextElement.classList.remove(otherPreviousOperandClasses[i]);
-            }
             var { purpleCurrOperand, ...otherCurrentOperandClasses } = formatCurrentOperandClasses;
-            for (let i in otherCurrentOperandClasses) {
-                currentOperandTextElement.classList.remove(otherCurrentOperandClasses[i]);
-            }
             var { purpleButton, ...otherButtonClasses } = formatButtonClasses;
-            for (let i in otherButtonClasses) {
-                buttonElements.forEach((button) => {
-                    button.classList.remove(otherButtonClasses[i]);
-                });
-            }
-
-            containerElement.classList.add(purpleBg);
-            calculatorElement.classList.add(purpleCal);
-            outputElement.classList.add(purpleOutputBorder);
-            previousOperandTextElement.classList.add(purplePrevOperand);
-            currentOperandTextElement.classList.add(purpleCurrOperand);
-            buttonElements.forEach((button) => {
-                button.classList.add(purpleButton);
-            });
+            handleAddThemeClasses`${purpleBg}${purpleCal}${purpleOutputBorder}${purplePrevOperand}
+            ${purpleCurrOperand}${purpleButton}${otherBgClasses}${otherCalBgClasses}
+            ${otherOutputBorderClasses}${otherPreviousOperandClasses}${otherCurrentOperandClasses}
+            ${otherButtonClasses}`;
             break;
     }
+}
+
+function handleAddThemeClasses(...classes) {
+    for (var i in classes[7]) {
+        if (!containerElement.classList.contains(classes[7][i])) continue;
+        else containerElement.classList.remove(classes[7][i]);
+    }
+    for (var i in classes[8]) {
+        if (!calculatorElement.classList.contains(classes[8][i])) continue;
+        else calculatorElement.classList.remove(classes[8][i]);
+    }
+    for (var i in classes[9]) {
+        if (!outputElement.classList.contains(classes[9][i])) continue;
+        else outputElement.classList.remove(classes[9][i]);
+    }
+    for (var i in classes[10]) {
+        if (!previousOperandTextElement.classList.contains(classes[10][i])) continue;
+        else previousOperandTextElement.classList.remove(classes[10][i]);
+    }
+    for (var i in classes[11]) {
+        if (!currentOperandTextElement.classList.contains(classes[11][i])) continue;
+        else currentOperandTextElement.classList.remove(classes[11][i]);
+    }
+    for (var i in classes[12]) {
+        buttonElements.forEach((button) => {
+            if (!button.classList.contains(classes[12][i])) return;
+            else button.classList.remove(classes[12][i]);
+        });
+    }
+
+    containerElement.classList.add(classes[1]);
+    calculatorElement.classList.add(classes[2]);
+    outputElement.classList.add(classes[3]);
+    previousOperandTextElement.classList.add(classes[4]);
+    currentOperandTextElement.classList.add(classes[5]);
+    buttonElements.forEach((button) => {
+        button.classList.add(classes[6]);
+    });
 }
