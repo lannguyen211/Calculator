@@ -35,7 +35,7 @@ allClearBtn.addEventListener("click", () => {
 });
 
 delBtn.addEventListener("click", () => {
-    calculator.devare();
+    calculator.delete();
     calculator.updateDisplay();
 });
 
@@ -47,10 +47,10 @@ document.addEventListener("keydown", (e) => {
     } else
         switch (e.key) {
             case "Backspace":
-                calculator.devare();
+                calculator.delete();
                 calculator.updateDisplay();
                 break;
-            case "Devare":
+            case "Delete":
                 calculator.clear();
                 calculator.updateDisplay();
                 break;
